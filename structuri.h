@@ -1,3 +1,4 @@
+/* TELECOMMS PROTOCOL - TRIFAN BOGDAN CRISTIAN - 312CD */
 #ifndef STRUCTURI_H
 #define STRUCTURI_H
 #include <stdio.h>
@@ -23,6 +24,7 @@
 #define ZECE_OPT 18
 #define ZECE_NOUA 19
 #define DOUA_ZECI 20
+#define CIFRA_ZERO '0'
 
 typedef struct location {
     int x, y;
