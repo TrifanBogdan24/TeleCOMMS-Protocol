@@ -24,11 +24,12 @@
 #define ZECE_OPT 18
 #define ZECE_NOUA 19
 #define DOUA_ZECI 20
+#define SUTA 100
 #define CIFRA_ZERO '0'
 
 typedef struct location {
     int x, y;
-} location, *locatii;
+} location;
 
 typedef struct antena {
     char *name;
@@ -38,14 +39,15 @@ typedef struct antena {
 typedef struct client {
     char *nume;
     char *prenume;
-    char *telefon;
+    int nr_telefoane;
+    char **telefoane;
     location *GPS_history;
-} client, *clienti;
+} client;
 
 typedef struct apel {
     client caller;
     client reciever;
     int call, answear, stop; // converting time from hours minutes and seconds in just seconds
-} apel, *apeluri;
+} apel;
 
 #endif
