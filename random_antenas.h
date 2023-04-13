@@ -83,9 +83,9 @@ antena *antenas_generator(int nr_antene,int N, int M)
     for (int i = ZERO; i < DOUA_ZECI; i++) {
         free(antene_predefinite[i]);
     }
-    free(antene_predefinite);
     free(first_random_part);
-    // free(second_random_part);
+    free(second_random_part);
+    free(antene_predefinite);
     return towers;
 }
 #endif
