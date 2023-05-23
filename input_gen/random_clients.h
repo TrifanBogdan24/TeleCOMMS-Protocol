@@ -1,6 +1,6 @@
 /* TELECOMMS PROTOCOL - TRIFAN BOGDAN CRISTIAN - 312CD */
-#ifndef RANDOM_CLIENTS_H
-#define RANDOM_CLIENTS_H
+#ifndef _RANDOM_CLIENTS_H_
+#define _RANDOM_CLIENTS_H_
 #include "structuri.h"
 #include <string.h>
 #include <time.h>

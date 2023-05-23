@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "structuri.h"
+#include "byte_string.h"
 
 antena *alloc_mem_antene(int nr_antene)
 {
@@ -26,7 +27,7 @@ telefon *alloc_mem_telefoane(int nr_tels)
         telefoane[i].status = (char **)malloc(SECONDS_IN_DAY * sizeof(char *));
         for (int j = ZERO; j < SECONDS_IN_DAY; j++) {
             telefoane[i].status[j] = (char *)malloc(CINCI_ZECI * sizeof(char));
-            strcpy(telefoane[i].status[j], "FREE");
+            byteop_strcpy(telefoane[i].status[j], "FREE");
         }
         telefoane[i].GPS_history = malloc(SECONDS_IN_DAY * sizeof(location));
     }
@@ -63,14 +64,14 @@ void init_call(telefon *telefoane, int indice_emitator, int indice_receptor, int
     // daca nu raspunde intr-un minut, apelul se va inchide automat
     int i = moment_seconds;
     while (i < moment_seconds + SECONDS_IN_MIN && i < SECONDS_IN_DAY) {        
-        strcpy(telefoane[indice_emitator].status[i], "CALLING ");
-        strcat(telefoane[indice_emitator].status[i], telefoane[indice_receptor].numar);
+        byteop_strcpy(telefoane[indice_emitator].status[i], "CALLING ");
+        byteop_strcat(telefoane[indice_emitator].status[i], telefoane[indice_receptor].numar);
 
-        if (strcmp(telefoane[indice_receptor].status[i], "FREE") != ZERO)
-            strcat(telefoane[indice_receptor].status[i], " & ");
+        if (byteop_strcmp(telefoane[indice_receptor].status[i], "FREE") != ZERO)
+            byteop_strcat(telefoane[indice_receptor].status[i], " & ");
 
-        strcpy(telefoane[indice_receptor].status[i], "IS BEING CALLED BY ");
-        strcat(telefoane[indice_receptor].status[i], telefoane[indice_emitator].numar);
+        byteop_strcpy(telefoane[indice_receptor].status[i], "IS BEING CALLED BY ");
+        byteop_strcat(telefoane[indice_receptor].status[i], telefoane[indice_emitator].numar);
 
         i++;
     }
@@ -78,20 +79,20 @@ void init_call(telefon *telefoane, int indice_emitator, int indice_receptor, int
 
 void answear_call(telefon *telefoane, int indice_emitator, int indice_receptor, int moment_seconds)
 {    
-    strcpy(telefoane[indice_emitator].status[moment_seconds], "IS ANSWEARED BY ");
-    strcat(telefoane[indice_emitator].status[moment_seconds], telefoane[indice_receptor].numar);
+    byteop_strcpy(telefoane[indice_emitator].status[moment_seconds], "IS ANSWEARED BY ");
+    byteop_strcat(telefoane[indice_emitator].status[moment_seconds], telefoane[indice_receptor].numar);
 
-    strcpy(telefoane[indice_receptor].status[moment_seconds], "ANSWEARS ");
-    strcat(telefoane[indice_receptor].status[moment_seconds], telefoane[indice_emitator].numar);
+    byteop_strcpy(telefoane[indice_receptor].status[moment_seconds], "ANSWEARS ");
+    byteop_strcat(telefoane[indice_receptor].status[moment_seconds], telefoane[indice_emitator].numar);
 
     int i = moment_seconds + UNU;
 
     while (i < SECONDS_IN_DAY) {
-        strcpy(telefoane[indice_emitator].status[i], "IN CALL WITH ");
-        strcat(telefoane[indice_emitator].status[i], telefoane[indice_receptor].numar);
+        byteop_strcpy(telefoane[indice_emitator].status[i], "IN CALL WITH ");
+        byteop_strcat(telefoane[indice_emitator].status[i], telefoane[indice_receptor].numar);
 
-        strcpy(telefoane[indice_receptor].status[i], "IN CALL WITH ");
-        strcat(telefoane[indice_receptor].status[i], telefoane[indice_emitator].numar);
+        byteop_strcpy(telefoane[indice_receptor].status[i], "IN CALL WITH ");
+        byteop_strcat(telefoane[indice_receptor].status[i], telefoane[indice_emitator].numar);
 
         i++;
     }
@@ -99,17 +100,17 @@ void answear_call(telefon *telefoane, int indice_emitator, int indice_receptor, 
 
 void decline_call(telefon *telefoane, int indice_emitator, int indice_receptor, int moment_seconds)
 {   
-    strcpy(telefoane[indice_emitator].status[moment_seconds], "IS DECLINED BY ");
-    strcat(telefoane[indice_emitator].status[moment_seconds], telefoane[indice_receptor].numar);
+    byteop_strcpy(telefoane[indice_emitator].status[moment_seconds], "IS DECLINED BY ");
+    byteop_strcat(telefoane[indice_emitator].status[moment_seconds], telefoane[indice_receptor].numar);
 
-    strcpy(telefoane[indice_receptor].status[moment_seconds], "DECLINES ");
-    strcat(telefoane[indice_receptor].status[moment_seconds], telefoane[indice_emitator].numar);
+    byteop_strcpy(telefoane[indice_receptor].status[moment_seconds], "DECLINES ");
+    byteop_strcat(telefoane[indice_receptor].status[moment_seconds], telefoane[indice_emitator].numar);
 
     int i = moment_seconds + UNU;
 
     while (i < SECONDS_IN_DAY) {
-        strcpy(telefoane[indice_emitator].status[i], "FREE");
-        strcpy(telefoane[indice_receptor].status[i], "FREE");
+        byteop_strcpy(telefoane[indice_emitator].status[i], "FREE");
+        byteop_strcpy(telefoane[indice_receptor].status[i], "FREE");
 
         i++;
     }
@@ -117,16 +118,16 @@ void decline_call(telefon *telefoane, int indice_emitator, int indice_receptor, 
 
 void end_call(telefon *telefoane, int indice_emitator, int indice_receptor, int moment_seconds)
 {    
-    strcpy(telefoane[indice_emitator].status[moment_seconds], "ENDS CALL WITH ");
-    strcat(telefoane[indice_emitator].status[moment_seconds], telefoane[indice_receptor].numar);
+    byteop_strcpy(telefoane[indice_emitator].status[moment_seconds], "ENDS CALL WITH ");
+    byteop_strcat(telefoane[indice_emitator].status[moment_seconds], telefoane[indice_receptor].numar);
 
-    strcpy(telefoane[indice_receptor].status[moment_seconds], "CALL IS ENDED BY ");
-    strcat(telefoane[indice_receptor].status[moment_seconds], telefoane[indice_emitator].numar);
+    byteop_strcpy(telefoane[indice_receptor].status[moment_seconds], "CALL IS ENDED BY ");
+    byteop_strcat(telefoane[indice_receptor].status[moment_seconds], telefoane[indice_emitator].numar);
 
     int i = moment_seconds + UNU;
     while (i < SECONDS_IN_DAY)  {
-        strcpy(telefoane[indice_emitator].status[i], "FREE");
-        strcpy(telefoane[indice_receptor].status[i], "FREE");
+        byteop_strcpy(telefoane[indice_emitator].status[i], "FREE");
+        byteop_strcpy(telefoane[indice_receptor].status[i], "FREE");
         i++;
     }
     
@@ -141,23 +142,23 @@ void calling_operation(int nr_tels, telefon *telefoane, char *emitator, char *re
     if (indice_emitator < ZERO || indice_receptor < ZERO)
         return;
 
-    if (strcmp(operation, "CALLS") == ZERO) {
+    if (byteop_strcmp(operation, "CALLS") == ZERO) {
         printf("good");
         init_call(telefoane, indice_emitator, indice_receptor, moment_seconds);
         return;
     }
 
-    if (strcmp(operation, "ANSWEARS") == ZERO) {
+    if (byteop_strcmp(operation, "ANSWEARS") == ZERO) {
         answear_call(telefoane, indice_emitator, indice_receptor, moment_seconds);
         return;
     }
 
-    if (strcmp(operation, "DECLINES") == ZERO) {
+    if (byteop_strcmp(operation, "DECLINES") == ZERO) {
         decline_call(telefoane, indice_emitator, indice_receptor, moment_seconds);
         return;
     }
 
-    if (strcmp(operation, "HANGS UP") == ZERO) {
+    if (byteop_strcmp(operation, "HANGS UP") == ZERO) {
         end_call(telefoane, indice_emitator, indice_receptor, moment_seconds);
         return;
     }
