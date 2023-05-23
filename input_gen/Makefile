@@ -1,5 +1,5 @@
 CC=gcc -g
-PATH_CS=cd ../cs
+PATH_CS=cd ../'coding style'
 PATH_INPUT=../input_gen
 GENER=DataGenerator
 
@@ -14,7 +14,7 @@ run: build
 valgrind: build
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(GENER)
 
-coding_style:
+check_coding_style:
 	$(PATH_CS) ; ./cs.sh $(PATH_INPUT)/ ; cd $(PATH_INPUT) 
 
 clean:

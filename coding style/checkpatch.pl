@@ -3286,7 +3286,7 @@ sub process {
 			if ($msg_type ne "" &&
 			    (show_type("LONG_LINE") || show_type($msg_type))) {
 				my $msg_level = \&WARN;
-				$msg_level = \&CHK if ($file);
+				$msg_level = \&ERROR if ($file);
 				&{$msg_level}($msg_type,
 					      "line length of $length exceeds $max_line_length columns\n" . $herecurr);
 			}

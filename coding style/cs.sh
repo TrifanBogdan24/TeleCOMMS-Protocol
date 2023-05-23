@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CHECKPATCH="$(dirname "$0")/checkpatch.pl"
+DOS2UNIX="$(dirname "$0")/.dos2unix"
 
 usage()
 {
@@ -23,10 +24,14 @@ check_coding_style()
         BLOCK_COMMENT_STYLE         # kernel specific convention
         EMBEDDED_FUNCTION_NAME      # DN -> not required for PC: Prefer using '"%s...", __func__' to using 'main', this function's name, in a string
         MALFORMED_INCLUDE           # DN -> not required for PC: ERROR:MALFORMED_INCLUDE: malformed #include filename
+        CONSTANT_COMPARISON         # DN -> not required for PC: WARNING:CONSTANT_COMPARISON: Comparisons should place the constant on the right side of the test
+        TYPO_SPELLING               # DN -> not required for PC: CHECK:TYPO_SPELLING: 'alocate' may be misspelled - perhaps 'allocate'?
     )
 
     local ignored_flags_combined=$(printf ",%s" "${IGNORED_FLAGS[@]}")
     ignored_flags_combined=${ignored_flags_combined:1}
+
+    "${DOS2UNIX}" "${1}" 1> /dev/null 2>&1 
 
     "${CHECKPATCH}" \
         --no-tree \
@@ -41,6 +46,7 @@ check_coding_style()
 }
 
 export CHECKPATCH="${CHECKPATCH}"
+export DOS2UNIX="${DOS2UNIX}"
 export -f check_coding_style
 
 if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
