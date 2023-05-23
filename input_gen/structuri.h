@@ -1,6 +1,6 @@
 /* TELECOMMS PROTOCOL - TRIFAN BOGDAN CRISTIAN - 312CD */
-#ifndef STRUCTURI_H
-#define STRUCTURI_H
+#ifndef STRUCTURI_H_
+#define STRUCTURI_H_
 #include <stdio.h>
 #include <stdlib.h>
 #define ZERO 0
@@ -39,14 +39,14 @@ typedef struct antena {
 typedef struct telefon {
     char *nume;
     char *prenume;
-    char *telefoane;
+    char *telefon;
     char **status;
     location *GPS_history;
-} client;
+} telefon;
 
 typedef struct apel {
-    client caller;
-    client reciever;
+    telefon caller;
+    telefon reciever;
     int call, answear, stop; // converting time from hours minutes and seconds in just seconds
 } apel;
 
