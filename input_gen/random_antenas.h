@@ -1,6 +1,6 @@
 /* TELECOMMS PROTOCOL - TRIFAN BOGDAN CRISTIAN - 312CD */
-#ifndef RANDOM_ANTENAS_H
-#define RANDOM_ANTENAS_H
+#ifndef _RANDOM_ANTENAS_H_
+#define _RANDOM_ANTENAS_H_
 #include "structuri.h"
 #include <time.h>
 

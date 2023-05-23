@@ -1,6 +1,7 @@
 /* TELECOMMS PROTOCOL - TRIFAN BOGDAN CRISTIAN - 312CD */
-#ifndef STRUCTURI_H_
-#define STRUCTURI_H_
+#ifndef _STRUCTURI_H_
+#define _STRUCTURI_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 
